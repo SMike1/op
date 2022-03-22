@@ -7,7 +7,8 @@
 # sum_cube(3,2) => 27 -> 3^3 = 27
 # sum_cube(0,4) => 100 -> 1^3+2^3+3^3+4^3 = 100
 # sum_cube(17, 14) => 12384 -> 15^3+16^3+17^3 = 12384
-
+#
+# mihail@svalov.ru
 
 import traceback
 
