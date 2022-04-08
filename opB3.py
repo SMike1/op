@@ -17,7 +17,6 @@ def f(text: str) -> int:
 
 def order(sentence):
     sentence = sentence.split()
-    print(sentence)
     sentence.sort(key=f)
     return " ".join(sentence)
 
