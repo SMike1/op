@@ -12,16 +12,16 @@
 
 
 apps =  [
-        {"id" : 1, "title" : "BrawlStars", "rating" : 4.9},
-        {"id" : 2, "title" : "Instagram", "rating" : 4.5},
-        {"id" : 3, "title" : "Vkontakte", "rating" : 4},
-        {"id" : 4, "title" : "TikTok", "rating" : 4.7},
-        {"id" : 5, "title" : "Steam", "rating" : 3},
-        {"id" : 6, "title" : "GosUslugi", "rating" : 2},
-        {"id" : 7, "title" : "Spotify", "rating" : 3.6},
-        {"id" : 8, "title" : "WhatsApp", "rating" : 2.5},
-        {"id" : 9, "title" : "Opera", "rating" : 1.5},
-        {"id" : 10, "title" : "Telegram", "rating" : 4.6},
+        {"id" : 1, "title" : "BrawlStars", "rating" : 4.9, "size" : 115, "author": "Bib Dark"},
+        {"id" : 2, "title" : "Instagram", "rating" : 4.5, "size" : 56, "author": "Rayan Gosling"},
+        {"id" : 3, "title" : "Vkontakte", "rating" : 4, "size" : 76, "author": "Bread Pitta"},
+        {"id" : 4, "title" : "TikTok", "rating" : 4.7, "size" : 89, "author": "Alan Wake"},
+        {"id" : 5, "title" : "Steam", "rating" : 3, "size" : 38, "author": "Geyb Niuel"},
+        {"id" : 6, "title" : "GosUslugi", "rating" : 2, "size" : 205, "author": "Alash Dursling"},
+        {"id" : 7, "title" : "Spotify", "rating" : 3.6, "size" : 150, "author": "Vank Babe"},
+        {"id" : 8, "title" : "WhatsApp", "rating" : 2.5, "size" : 46, "author": "Drake"},
+        {"id" : 9, "title" : "Opera", "rating" : 1.5, "size" : 48, "author": "Asap"},
+        {"id" : 10, "title" : "Telegram", "rating" : 4.6, "size" : 205, "author": "Pavel Durov"},
         ]
 def All_apps(app):
     for item in app:
@@ -48,11 +48,13 @@ def search_app_rating(rating,items):
     print(i)
 
         
-def set_new_app_id(digit, items, new_digit, title, rating):
+def set_new_app_id(digit, items, new_digit, title, rating, size, author):
     for item in items:
         if item["id"] == digit:
             item["title"] = title
             item["rating"] = rating
+            item["size"] = size
+            item["author"] = author
             break
 
         
@@ -65,7 +67,7 @@ def pop_app_id(digit,items):
 All_apps(apps)    
 search_app_number(1, apps)    
 search_app_rating(1.5, apps)   
-set_new_app_id(1, apps, 1, "ClashRoyal", 3.5)
+set_new_app_id(1, apps, 1, "ClashRoyal", 3.5, 78, "Travis Scott")
 pop_app_id(6, apps)
 All_apps(apps)
 

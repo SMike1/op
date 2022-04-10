@@ -11,13 +11,14 @@ import traceback
 def f(text: str) -> int:
     for i in text:
         if i.isdigit():
-            print(i)
             return int(i)
 
 
 def order(sentence):
     sentence = sentence.split()
+    print(sentence)
     sentence.sort(key=f)
+    print(sentence)
     return " ".join(sentence)
 
 
