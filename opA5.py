@@ -43,7 +43,7 @@ def search_app_number(digit,items):
 def search_app_rating(rating,items):
     i = 0
     for item in items:
-        if (item["rating"]*10) > rating*10:
+        if (item["rating"]) > rating:
             i +=1
     print(i)
 
@@ -51,6 +51,7 @@ def search_app_rating(rating,items):
 def set_new_app_id(digit, items, new_digit, title, rating, size, author):
     for item in items:
         if item["id"] == digit:
+            item["id"] = new_digit
             item["title"] = title
             item["rating"] = rating
             item["size"] = size
@@ -66,8 +67,8 @@ def pop_app_id(digit,items):
             
 All_apps(apps)    
 search_app_number(1, apps)    
-search_app_rating(1.5, apps)   
-set_new_app_id(1, apps, 1, "ClashRoyal", 3.5, 78, "Travis Scott")
+search_app_rating(3.9 , apps)   
+set_new_app_id(1, apps, 2, "ClashRoyal", 3.5, 78, "Travis Scott")
 pop_app_id(6, apps)
 All_apps(apps)
 

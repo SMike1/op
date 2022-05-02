@@ -16,9 +16,7 @@ def f(text: str) -> int:
 
 def order(sentence):
     sentence = sentence.split()
-    print(sentence)
     sentence.sort(key=f)
-    print(sentence)
     return " ".join(sentence)
 
 
@@ -33,3 +31,4 @@ except AssertionError:
     traceback.print_exc()
 else:
     print("TEST PASSED")
+    

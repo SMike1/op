@@ -25,9 +25,10 @@ def wiki_function():
 
     with open("text.txt", "r") as file:
         for line in file:
-            line = "".join(list(filter(lambda x: x in successful, line))).lower()
+            line = "".join(list(filter(lambda x: x in successful, line))).lower()            
             if line != "":
                 text += line.split()
+                
 
     line = " ".join(text)
     info = []
