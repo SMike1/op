@@ -26,8 +26,8 @@ class Group:
     def setByIndex(self, index, person):
         if not (isinstance(person, Student) or isinstance(person, Professor)):
             raise ValueError('person must be of type Student or Professor')
-        if index < len(self.ListGroup) or index < 0:
-            raise ValueError('index out of bounds, group has ' + str(len(self.ListGroup))) + ' persons'
+        if index > len(self.ListGroup) or index < 0:
+            raise ValueError('index out of bounds, group has ' + str(len(self.ListGroup)) + ' persons')
         if isinstance(person, Student) and index < 1:
             raise ValueError("Student must be at index 1 or higher")
         elif isinstance(person, Professor) and index != 0:
@@ -88,6 +88,27 @@ group1 = group1 + student1
 group1 = group1 + student2
 group1 = group1 + student3
 group1 = group1 + student4
+
+try:
+    group1.setByIndex(10, student1)
+except ValueError as va:
+    assert str(va) == "index out of bounds, group has 5 persons"
+
+try:
+    group1.setByIndex(1, Person("Иван", "Драгов", 23))
+except ValueError as va:
+    assert str(va) == "person must be of type Student or Professor"
+
+try:
+    group1.setByIndex(2,professor1)
+except ValueError as va:
+    assert str(va) == "Professor must be at index 0"
+    
+try:
+    group1.setByIndex(0,student1)
+except ValueError as va:
+    assert str(va) == "Student must be at index 1 or higher"
+
 assert len(group1) == 4
 
 
