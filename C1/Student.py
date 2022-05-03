@@ -1,25 +1,36 @@
 from Person import Person
+from log import Log
 
 class Student(Person):
     def __init__ (self,  pName, pSurname, pAge, pST):
         super().__init__(pName, pSurname, pAge)
         self.st = pST
         self.eb = {}
+        Log('CRE', 'создан ' + str(self))
         
     def addMark(self, subj, mark):
         self.eb[subj] = mark
+        Log('INF', 'добавлен ' + str(subj))
+
 
     def getMark(self, subj):
         if subj in self.eb:
+            Log('INF', 'распечатан ' + str(self.eb[subj]))
             return self.eb[subj]
         else:
-            raise ValueError(subj + ' not found')
+            s = subj + ' not found'
+            Log('ERR', s)
+            raise ValueError(s)
 
     def formPrint(self):
-        return ', '.join(map(lambda x: str(x) + ' - ' + str(self.eb[x]), self.eb))
+        r = ', '.join(map(lambda x: str(x) + ' - ' + str(self.eb[x]), self.eb))
+        Log('INF', 'распечатан ' + r)
+        return r
             
     def __str__(self):
-        return "Имя = %s, Фамилия = %s, Возраст = %d, номер студенческого = %d" %(self.name,self.Surname,self.age,self.st)
+        s = "Имя = %s, Фамилия = %s, Возраст = %d, номер студенческого = %d" %(self.name,self.Surname,self.age,self.st)
+        Log('INF', 'распечатан ' + s)
+        return s
 
 # Тесты
 student1 = Student("Ярик", "Суслин", 18, 189234)

@@ -1,4 +1,5 @@
 from Person import Person
+from log import Log
 
 class Professor(Person):
     def __init__ (self, pName, pSurname, pAge, pnt, pPosition):
@@ -6,23 +7,33 @@ class Professor(Person):
         self.nt = pnt
         self.position = pPosition
         self.sublist = []
+        Log('CRE', 'создан ' + str(self))
         
     def setPosition(self, newPosition):
         self.position = newPosition
+        Log('INF', 'добавлен ' + str(newPosition))
 
     def addSubj(self, newsubj):
         if newsubj not in self.sublist:
             self.sublist.append(newsubj)
+            Log('INF', 'добавлен ' + str(newsubj))
 
     def delSubj(self, delsubj):
         if delsubj in self.sublist:
             self.sublist.remove(delsubj)
+            Log('INF', 'удален ' + str(delsubj))
+
 
     def subjPrint(self):
+        Log('INF', 'распечатан ' + str(self.sublist))
         return ', '.join(self.sublist)
+        
 
     def __str__(self):
-        return "Имя = %s, Фамилия = %s, Возраст = %d, номер удостоверения = %d, Должность = %s" %(self.name, self.Surname, self.age, self.nt, self.position)
+        retVal = "Имя = %s, Фамилия = %s, Возраст = %d, номер удостоверения = %d, Должность = %s" %(self.name, self.Surname, self.age, self.nt, self.position)
+        Log('INF', 'распечатан ' + retVal)       
+        return retVal
+    
 
 # Тесты
 

@@ -1,58 +1,87 @@
 from Person import Person
 from Student import Student
 from Professor import Professor
+from log import Log
 
 
 class Group:
     def __init__(self, pNGroup):
         self.Ngroup = pNGroup
         self.ListGroup = []
+        Log('CRE', 'создан ' + str(self))
 
     def __str__(self):
-        return str(self.Ngroup)+ " группа" + '\n' + '\n'.join(map(lambda x: str(x), self.ListGroup))
+        s = str(self.Ngroup)+ " группа" + '\n' + '\n'.join(map(lambda x: str(x), self.ListGroup))
+        Log('INF', 'распечатан ' + s)
+        return s
  
 
     def __len__(self):
         if len(self.ListGroup) == 0:
+            Log('INF', 'распечатан ' + 0)
             return 0
         else:
-            return len(self.ListGroup)-1
+            s = len(self.ListGroup)-1
+            Log('INF', 'распечатан {0}'.format(s))
+            return s
 
     def getByIndex(self, index):
         if index <= len(self.ListGroup):
-            return self.ListGroup[index]
+            s = self.ListGroup[index]
+            Log('INF', 'распечатан {0}'.format(str(s)))
+            return s
+        else:
+            s = 'index {0} out of bounds, group has {1} persons'.format(index, str(len(self.ListGroup)))
+            Log('ERR', s)
+            raise ValueError(s)            
 
 
     def setByIndex(self, index, person):
         if not (isinstance(person, Student) or isinstance(person, Professor)):
-            raise ValueError('person must be of type Student or Professor')
+            s = 'person must be of type Student or Professor'
+            Log('ERR', s)
+            raise ValueError(s)
         if index > len(self.ListGroup) or index < 0:
-            raise ValueError('index out of bounds, group has ' + str(len(self.ListGroup)) + ' persons')
+            s = 'index out of bounds, group has ' + str(len(self.ListGroup)) + ' persons'
+            Log('ERR', s)
+            raise ValueError(s)
         if isinstance(person, Student) and index < 1:
-            raise ValueError("Student must be at index 1 or higher")
+            s = "Student must be at index 1 or higher"
+            Log('ERR', s)
+            raise ValueError(s)
         elif isinstance(person, Professor) and index != 0:
-            raise ValueError("Professor must be at index 0")
+            s = "Professor must be at index 0"
+            Log('ERR', s)
+            raise ValueError(s)
         self.ListGroup[index] = person
 
     def __add__(self,other):
         self.ListGroup.append(other)
+        Log('INF', 'добавлен ' + str(other))
         return self
 
     def delByIndex(self, index):
         if (index <= len(self.ListGroup)) and (index >= 0) :
             self.ListGroup.pop(index)
-
+            Log('INF', 'удален person at index ' + str(index))
+        else:
+            s = 'index {0} out of bounds, group has {1} persons'.format(index, str(len(self.ListGroup)))
+            Log('ERR', s)
+            raise ValueError(s)  
 
     def infoToTxtFile(self):
-        f = open('newtext.txt' ,'w')
-        f.write(str(self.Ngroup) + ' группа\n')
-        for person in self.ListGroup:
-            f.write(str(person) + '\n')
-            if isinstance(person, Student):
-                f.write(str(person.formPrint())+'\n'+'\n')
-            else:
-                f.write(str(person.subjPrint())+'\n'+'\n')
-        f.close()
+        try:
+            with open('newtext.txt' ,'w') as f:
+                f.write(str(self.Ngroup) + ' группа\n')
+                for person in self.ListGroup:
+                    f.write(str(person) + '\n')
+                    if isinstance(person, Student):
+                        f.write(str(person.formPrint())+'\n'+'\n')
+                    else:
+                        f.write(str(person.subjPrint())+'\n'+'\n')
+        except OSError as e:
+            Log('ERR', str(e))
+            sys.exit()
 
 # Тесты
 
