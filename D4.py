@@ -1,8 +1,12 @@
+from datetime import datetime
 import sys
 import os
 import os.path
 import glob
 import shutil
+import timeit
+import re
+import subprocess
 
 def copyFiles(src_path, fileMask, dst_path):
     filenames = glob.glob(os.path.join(src_path, fileMask))
@@ -18,40 +22,32 @@ def createAndCopy(src_path, dst_path):
     os.makedirs(task_B_path, exist_ok=True)
     copyFiles(src_path, "task_A*.py", task_A_path)
     copyFiles(src_path, "task_B*.py", task_B_path)
-
-
     
-    
+def FileReading(q):
+    FUNCTION_REGEX = r'(?<=def\s)(.*)(?=:)'
+    p = os.path.abspath('Ознакомительная папка')
+    for fold in os.listdir(p):
+        s = os.path.join(p, fold)
+        files = glob.glob(os.path.join(s,"task_*.py"))
+        folderName = os.path.basename(fold)
+        print('folder', "\"" ,folderName, "\"")
+        for file in files:
+            start = timeit.default_timer()
+            name = os.path.basename(file)
+            print('\tscript "{0}"'.format(name.strip()))
+            with open(file) as f:
+                task = f.read()
+            funcs = re.findall(FUNCTION_REGEX, task, re.MULTILINE)
+            for func in funcs:
+                print('\t\tfunction "{0}"'.format(func.strip()))   
+            result = subprocess.Popen(['python',file], stdout=subprocess.PIPE)
+            out, err = result.communicate()
+            print('\t\toutput "{0}"'.format(out.decode('UTF-8').strip()))
+            stop = timeit.default_timer()
+            time = stop - start
+            print('\t\ttime "{:.3f} sec"'.format(time))
 
-# https://stackoverflow.com/questions/5622976/how-do-you-calculate-program-run-time-in-python
-# https://www.delftstack.com/howto/python/python-run-another-python-script/
-
-'''
-folder = Ознакомительная папка
-path = "Users/mihail/Documents/proj/op/tasks for D4"
-'''
 createAndCopy("tasks A B", "Ознакомительная папка")
-
-
-#createCatalog("tasks A B", "Ознакомительная папка/Тема А")
-#createCatalog("tasks A B", "Ознакомительная папка/Тема Б")
-
-
-
-'''
-os.mkdir("Users/mihail/Documents/proj/op/ tasks for D4")
-
-'''
-'''
-filenames = glob.glob(os.path.join(src_path, "task_A*.py"))
-    for filename in filenames:
-        if os.path.isfile(filename):
-            shutil.copy2(filename, task_A_path)
-
-    filenames = glob.glob(os.path.join(src_path, "task_B*.py"))
-    for filename in filenames:
-        if os.path.isfile(filename):
-            shutil.copy2(filename, task_B_path)
-'''
+FileReading(1)
 
 
