@@ -18,7 +18,6 @@ def sum_cube(n, m):
     if n != m:
         for x in range(min(n, m)+1,max(n, m)+1):
             sum += x**3
-    print(sum)
     return sum
 
 # Тесты
